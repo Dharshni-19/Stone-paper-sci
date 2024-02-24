@@ -1,32 +1,49 @@
-
 import random
 
-def play():
-    user = get_user_choice()
-    computer = random.choice(['r','p','s'])
+choices = ["Rock", "Paper", "Scissors"]
+cpu_score = 0
+player_score = 0
 
-    if user == computer:
-        return 'Its a tie'
+while True:
+    computer = random.choice(choices)
+    player = input("Rock, Paper, or Scissors?").capitalize()
 
-
-    if is_win(user, computer):
-        return 'You won!'
-
-
-    return 'You lost!'
-
-
-def get_user_choice():
-    while True:
-        user = input("What's your choice? 'r' for rock, 'p' for paper, 's' for scissors \n")
-        if user in ['r', 'p', 's']:
-            return user
+    # Conditions for Rock, Paper, and Scissors
+    if player == computer:
+        print("Tie!")
+    elif player == "Rock":
+        if computer == "Paper":
+            print("You lose!", computer, "covers", player)
+            cpu_score += 1
         else:
-            print("Invalid choice. Please enter 'r', 'p', or 's'.")
+            print("You win!", player, "smashes", computer)
+            player_score += 1
+    elif player == "Paper":
+        if computer == "Scissors":
+            print("You lose!", computer, "cut", player)
+            cpu_score += 1
+        else:
+            print("You win!", player, "covers", computer)
+            player_score += 1
+    elif player == "Scissors":
+        if computer == "Rock":
+            print("You lose...", computer, "smashes", player)
+            cpu_score += 1
+        else:
+            print("You win!", player, "cut", computer)
+            player_score += 1
+    elif player == 'End':
+        print("Final Scores:")
+        print(f"CPU: {cpu_score}")
+        print(f"Player: {player_score}")
+        break
 
-def is_win(player, opponent):
-    return (player == 'r' and opponent == 's') or (player == 's' and opponent == 'p') \
-        or (player == 'p' and opponent == 'r')
+    while True:
+        choice = input("Continue? (yes/no)").lower()
+        if choice in ['yes', 'no']:
+            break
+        else:
+            print("Invalid input. Please enter 'yes' or 'no'.")
 
-if __name__ == "__main__":
-    print(play())
+    if choice == 'no':
+        break
